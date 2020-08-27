@@ -1,6 +1,6 @@
 @section('navigation')
 <section class="topbar">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-secondary">
         <button type="button" class="hamburger hamburger--arrow d-none d-lg-block">
             <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
@@ -21,7 +21,7 @@
                 <img src="{{ asset('/images/admin/users/default-image.png') }}" class="rounded" width="100">
             </div>
             <div class="col-12">
-                <p class="roboto-bold text-15">John Doe</p>
+                <p class="roboto-bold text-12">{{ $current_user['first_name'] }} {{ $current_user['last_name'] }}</p>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
     </div>
     <div class="main-list list-group">
         <div class="link-type">
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action">
                 <i class="nav-icon material-icons">dashboard</i> Dashboard
             </a>
         </div>

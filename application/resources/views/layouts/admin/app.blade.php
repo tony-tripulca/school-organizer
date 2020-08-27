@@ -34,7 +34,7 @@
 
         <title>{{ $tab_title }}</title>
     </head>
-    <body class="overflow-hidden">
+    <body>
         <div class="preloader">
             <div class="spinner spinner-3"></div>
         </div>

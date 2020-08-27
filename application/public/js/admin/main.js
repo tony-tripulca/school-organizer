@@ -4,6 +4,8 @@ $(() => {
     $(".hamburger").on("click", function (event) {
         $(this).toggleClass("is-active");
         $("section.sidebar").toggleClass("active");
+        $("main").toggleClass("active");
+        $("body .wrapper").css("overflow-x", "hidden");
     });
 
     $(".drop-type button").on("click", function () {
@@ -14,7 +16,11 @@ $(() => {
             $(this).parent().find(".sub-list").slideDown("fast");
         } else {
             $(this).find(".nav-arrow").text("keyboard_arrow_right");
-            $(this).parent().find(".sub-list").stop(true, false).slideUp("fast");
+            $(this)
+                .parent()
+                .find(".sub-list")
+                .stop(true, false)
+                .slideUp("fast");
         }
     });
 });
@@ -22,8 +28,9 @@ $(() => {
 function initMain() {
     hideSubLists();
 
-    if(media().desktop) {
+    if (media().desktop) {
         $("section.sidebar").toggleClass("active");
+        $("main").toggleClass("active");
     }
 }
 

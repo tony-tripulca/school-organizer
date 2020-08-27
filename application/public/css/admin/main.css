@@ -1,7 +1,23 @@
+html,
+body {
+    width: 100%;
+    font-family: "OpenSans";
+}
+
+section.topbar .navbar {
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.4s;
+}
 section.sidebar {
     position: fixed;
     top: 76px;
     left: 0;
+    z-index: 1000;
     width: 15rem;
     height: 100%;
     margin-left: -15rem;
@@ -18,6 +34,16 @@ section.sidebar .profile-box {
 section.sidebar .spacer {
     padding-top: 10px;
     padding-left: 10px;
+}
+main {
+    width: 100%;
+    margin-left: 0;
+    padding: 100px 20px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+main.active {
+    margin-left: 15rem;
 }
 /** ===========================================================
  * Plugins
@@ -46,7 +72,7 @@ section.sidebar .spacer {
 /** ===========================================================
  * Components
  * ============================================================ */
- section.sidebar .list-group-item {
+section.sidebar .list-group-item {
     color: black;
     background-color: transparent;
 }
@@ -91,6 +117,9 @@ section.sidebar .nav-arrow.material-icons {
 @media (min-width: 992px) {
     .hamburger {
         margin-right: 16px;
+    }
+    main.active {
+        width: calc(100% - 15rem);
     }
 }
 @media (min-width: 1200px) {

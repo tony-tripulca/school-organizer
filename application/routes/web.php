@@ -33,5 +33,6 @@ Route::group([
 ], function () {
     Route::group([], function () {
         Route::get('/', "DashboardController@index")->name("base");
+        Route::get('/dashboard', "DashboardController@index")->name("dashboard");
     });
 });
