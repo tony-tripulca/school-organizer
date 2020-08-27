@@ -160,3 +160,7 @@
     text-align: right;
     font-size: 0.9rem;
 }
+.crumbs {
+    margin: 0;
+    padding: 0;
+}

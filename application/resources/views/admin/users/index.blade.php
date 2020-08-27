@@ -29,15 +29,22 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <p class="roboto-bold text-15">{{ $page_title }}</p>
+        </div>
+        <div class="offset-2 col-4 text-right">
+            <div class="crumbs">
+                <a href="{{ route('admin.base') }}" class="roboto-bold text-muted text-_9">Admin Panel &gt;</a>
+                <a href="{{ route('admin.users.index') }}" class="roboto-bold text-muted text-_9">Users &gt;</a>
+                <a href="{{ route('admin.users.index', ['type' => $user_type ?? 'all']) }}" class="roboto-bold text-muted text-_9">{{ ucwords($user_type ?? "View All") }}</a>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-12 col-md-4 col-xl-3">
             <div class="card shadow">
                 <div class="card-body">
-                    <form class="index-form" name="filter_form">
+                    <form name="filter_form">
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <span class="roboto-bold">Filters</span>
@@ -91,9 +98,9 @@
         </div>
         <div class="col-12 col-md-8 col-xl-9">
             <div class="card shadow">
-                @isset($label)
+                @isset($user_type)
                     <div class="card-header">
-                        <button class="btn btn-material btn-success" data-toggle="modal" data-target="#add-user-modal">Add {{ $label }}</button>
+                        <button class="btn btn-material btn-success" data-toggle="modal" data-target="#add-{{ $user_type }}-modal">Add {{ ucwords($user_type) }}</button>
                     </div>
                 @endisset
                 <div class="card-body">
@@ -122,23 +129,117 @@
 @endsection
 
 @section('modal')
-<div class="modal index-modal fade" id="add-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                @isset($label)
-                    <p class="modal-title roboto-bold text-15">Add {{ $label }}</p>
-                @endisset
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body"><p>Anim ut deserunt qui ex quis enim. Pariatur velit aliqua do nisi in do sint sit fugiat veniam dolore. Ipsum laboris mollit nulla exercitation velit occaecat culpa sunt esse nostrud eu ea adipisicing voluptate. Anim quis mollit ea voluptate culpa incididunt eiusmod consectetur reprehenderit ipsum sunt. Ex aute voluptate voluptate velit occaecat mollit officia. Quis deserunt nisi elit nulla ipsum officia excepteur minim id. Duis sunt reprehenderit cillum excepteur.</p><p>Anim ut deserunt qui ex quis enim. Pariatur velit aliqua do nisi in do sint sit fugiat veniam dolore. Ipsum laboris mollit nulla exercitation velit occaecat culpa sunt esse nostrud eu ea adipisicing voluptate. Anim quis mollit ea voluptate culpa incididunt eiusmod consectetur reprehenderit ipsum sunt. Ex aute voluptate voluptate velit occaecat mollit officia. Quis deserunt nisi elit nulla ipsum officia excepteur minim id. Duis sunt reprehenderit cillum excepteur.</p><p>Anim ut deserunt qui ex quis enim. Pariatur velit aliqua do nisi in do sint sit fugiat veniam dolore. Ipsum laboris mollit nulla exercitation velit occaecat culpa sunt esse nostrud eu ea adipisicing voluptate. Anim quis mollit ea voluptate culpa incididunt eiusmod consectetur reprehenderit ipsum sunt. Ex aute voluptate voluptate velit occaecat mollit officia. Quis deserunt nisi elit nulla ipsum officia excepteur minim id. Duis sunt reprehenderit cillum excepteur.</p></div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-material btn-success">Save</button>
-                <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Cancel</button>
+<div class="modal index-modal fade" id="add-student-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <form name="add_student_form">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @isset($user_type)
+                        <p class="modal-title roboto-bold text-15">Add {{ ucwords($user_type) }}</p>
+                    @endisset
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <span class="roboto-bold text_12">Student's record</span>
+                        </div>
+                        <div class="form-group col-5">
+                            <small class="text-muted">Last name</small>
+                            <input type="text" class="add-student-input form-control" name="last_name">
+                        </div>
+                        <div class="form-group col-7">
+                            <small class="text-muted">First name</small>
+                            <input type="text" class="add-student-input form-control" name="first_name">
+                        </div>
+                        <div class="form-group col-5">
+                            <small class="text-muted">Middle name</small>
+                            <input type="text" class="add-student-input form-control" name="middle_name">
+                        </div>
+                        <div class="form-group col-3">
+                            <small class="text-muted">Suffix</small>
+                            <input type="text" class="add-student-input form-control" name="suffix">
+                        </div>
+                        <div class="form-group col-4">
+                            <small class="text-muted">Gender</small>
+                            <select class="add-student-input custom-select" name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-12">
+                            <small class="text-muted">Address</small>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="material-icons">location_on</i></span>
+                                </div>
+                                <input type="text" class="add-student-input form-control" name="full_address">
+                            </div>
+                        </div>
+                        <div class="form-group col-12">
+                            <small class="text-muted">Mobile number</small>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="material-icons">phone_android</i></span>
+                                </div>
+                                <input type="text" class="add-student-input form-control" name="mobile">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <span class="roboto-bold text_12">Parent's record</span>
+                        </div>
+                        <div class="form-group col-12">
+                            <small class="roboto-bold">FATHER</small>
+                        </div>
+                        <div class="form-group col-5">
+                            <small class="text-muted">last name</small>
+                            <input type="text" class="add-student-input form-control" name="father_last_name">
+                        </div>
+                        <div class="form-group col-7">
+                            <small class="text-muted">first name</small>
+                            <input type="text" class="add-student-input form-control" name="father_first_name">
+                        </div>
+                        <div class="form-group col-12">
+                            <small class="text-muted">Mobile number</small>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="material-icons">phone_android</i></span>
+                                </div>
+                                <input type="text" class="add-student-input form-control" name="mother_mobile">
+                            </div>
+                        </div>
+                        <div class="form-group col-12">
+                            <small class="roboto-bold">MOTHER</small>
+                        </div>
+                        <div class="form-group col-5">
+                            <small class="text-muted">last name</small>
+                            <input type="text" class="add-student-input form-control" name="mother_last_name">
+                        </div>
+                        <div class="form-group col-7">
+                            <small class="text-muted">first name</small>
+                            <input type="text" class="add-student-input form-control" name="mother_first_name">
+                        </div>
+                        <div class="form-group col-12">
+                            <small class="text-muted">Mobile number</small>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="material-icons">phone_android</i></span>
+                                </div>
+                                <input type="text" class="add-student-input form-control" name="mother_mobile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-material btn-success">Save</button>
+                    <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 @endsection

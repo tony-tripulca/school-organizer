@@ -30,11 +30,11 @@ class UserController extends Controller
         switch($request->input('type')) {
             case "admin": 
                 $this->data['page_title'] = "USERS | Admin";
-                $this->data['label'] = "Admin";
+                $this->data['user_type'] = "admin";
                 break;
             case "students":
-                $this->data['page_title'] = "USERS | Students";
-                $this->data['label'] = "Student";
+                $this->data['page_title'] = "USERS | Student";
+                $this->data['user_type'] = "student";
                 break;
             default:
                 $this->data['page_title'] = "USERS";

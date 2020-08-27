@@ -40,6 +40,23 @@ function hideSubLists() {
     $(".sub-list").stop(true, false).slideUp("fast");
 }
 
+function checkElementsName(elements) {
+    var inspect = {
+        elements: [],
+        ids: [],
+        names: [],
+    };
+
+    inspect.elements = elements;
+
+    $.each(elements, function (i, element) {
+        inspect.ids.push($(element).attr("id"));
+        inspect.names.push($(element).attr("name"));
+    });
+
+    console.log(inspect);
+}
+
 function media() {
     if (window.matchMedia("(min-width: 992px)").matches) {
         return {

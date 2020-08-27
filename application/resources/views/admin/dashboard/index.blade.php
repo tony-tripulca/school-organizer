@@ -29,8 +29,14 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <p class="roboto-bold text-15">{{ $page_title }}</p>
+        </div>
+        <div class="col-6 text-right">
+            <div class="crumbs">
+                <a href="{{ route('admin.base') }}" class="roboto-bold text-muted text-_9">Admin Panel &gt;</a>
+                <a href="{{ route('admin.dashboard') }}" class="roboto-bold text-muted text-_9">Dashboard</a>
+            </div>
         </div>
     </div>
     <div class="row">
