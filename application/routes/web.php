@@ -25,7 +25,7 @@ Route::group([
     });
 });
 
-// Test routes
+// Temporary routes
 Route::group([
     'namespace' => 'Admin',
     'prefix' => 'admin',
@@ -34,5 +34,7 @@ Route::group([
     Route::group([], function () {
         Route::get('/', "DashboardController@index")->name("base");
         Route::get('/dashboard', "DashboardController@index")->name("dashboard");
+
+        Route::resource('/users', "UserController");
     });
 });

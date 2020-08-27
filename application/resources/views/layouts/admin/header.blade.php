@@ -40,8 +40,9 @@
                 <i class="nav-arrow material-icons">keyboard_arrow_right</i>
             </button>
             <div class="sub-list list-group">
-                <a href="#" class="list-group-item list-group-item-action">Admin</a>
-                <a href="#" class="list-group-item list-group-item-action">Students</a>
+                <a href="{{ route('admin.users.index', ['type' => 'admin']) }}" class="list-group-item list-group-item-action">Admin</a>
+                <a href="{{ route('admin.users.index', ['type' => 'students']) }}" class="list-group-item list-group-item-action">Students</a>
+                <a href="{{ route('admin.users.index') }}" class="list-group-item list-group-item-action">View All</a>
             </div>
         </div>
     </div>
