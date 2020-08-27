@@ -40,8 +40,7 @@
         </div>
         <div class="wrapper">
             <header>
-                @yield('topbar')
-                @yield('sidebar')
+                @yield('navigation')
             </header>
             <main>
                 <div class="ajax-loader"></div>

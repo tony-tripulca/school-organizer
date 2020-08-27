@@ -32,6 +32,6 @@ Route::group([
     'as' => 'admin.',
 ], function () {
     Route::group([], function () {
-        Route::get('/', "DashboardController@index");
+        Route::get('/', "DashboardController@index")->name("base");
     });
 });
