@@ -32,9 +32,15 @@ function initMain() {
         $("section.sidebar").toggleClass("active");
         $("main").toggleClass("active");
     }
+
+    initMainPlugins();
 }
 
-function initPlugins() {}
+function initMainPlugins() {
+    $('body').tooltip({
+        selector: '[data-toggle="tooltip"]'
+    });
+}
 
 function hideSubLists() {
     $(".sub-list").stop(true, false).slideUp("fast");
@@ -77,4 +83,23 @@ function media() {
             mobile: true,
         };
     }
+}
+
+function notify(data) {
+    $.toast({
+        text: data.message,
+        heading: data.heading,
+        icon: data.icon,
+        showHideTransition: "slide",
+        allowToastClose: true,
+        hideAfter: data.timeout,
+        stack: 5,
+        position: "top-right",
+        textAlign: "left",
+        loader: true,
+        loaderBg: "#777672",
+        bgColor: "#171717",
+        textColor: "white",
+        afterHidden: data.event,
+    });
 }

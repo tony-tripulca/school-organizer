@@ -74,6 +74,9 @@
 .bg-black {
     background-color: black;
 }
+.bg-red {
+    background-color: red;
+}
 .bg-verylightgrey {
     background-color: #cecece;
 }
@@ -101,15 +104,12 @@
 /** ===========================================================
  * Components
  * ============================================================ */
-.btn-material {
-    margin-left: 3px;
-    margin-right: 3px;
-    padding-bottom: 4px;
+.jq-toast-single {
     border-radius: 0.15rem;
-    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+.crumbs {
+    margin: 0;
+    padding: 0;
 }
 .card {
     margin-bottom: 20px;
@@ -160,7 +160,19 @@
     text-align: right;
     font-size: 0.9rem;
 }
-.crumbs {
-    margin: 0;
-    padding: 0;
+.modal-dialog {
+    max-height: 80%;
+}
+.modal-content {
+    border-radius: 0.20rem;
+}
+.btn-material {
+    margin-left: 3px;
+    margin-right: 3px;
+    padding-bottom: 4px;
+    border-radius: 0.15rem;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }

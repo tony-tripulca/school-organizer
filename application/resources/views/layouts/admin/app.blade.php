@@ -38,13 +38,17 @@
         <div class="preloader">
             <div class="spinner spinner-3"></div>
         </div>
-        <div class="wrapper">
+        <div class="loader-wrap">
             <header>
                 @yield('navigation')
             </header>
             <main>
-                <div class="ajax-loader"></div>
-                @yield('content')
+                <div class="main-wrap">
+                    <div class="ajax-loader"></div>
+                    <div class="content-wrap">
+                        @yield('content')
+                    </div>
+                </div>
             </main>
             <footer>
                 @yield('footer')

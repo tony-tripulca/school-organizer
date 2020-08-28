@@ -41,7 +41,7 @@
             </button>
             <div class="sub-list list-group">
                 <a href="{{ route('admin.users.index', ['type' => 'admin']) }}" class="list-group-item list-group-item-action">Admin</a>
-                <a href="{{ route('admin.users.index', ['type' => 'students']) }}" class="list-group-item list-group-item-action">Students</a>
+                <a href="{{ route('admin.users.index', ['type' => 'student']) }}" class="list-group-item list-group-item-action">Students</a>
                 <a href="{{ route('admin.users.index') }}" class="list-group-item list-group-item-action">View All</a>
             </div>
         </div>

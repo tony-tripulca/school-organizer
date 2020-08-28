@@ -3,7 +3,6 @@ body {
     width: 100%;
     font-family: "OpenSans";
 }
-
 section.topbar .navbar {
     -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
         0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -38,12 +37,82 @@ section.sidebar .spacer {
 main {
     width: 100%;
     margin-left: 0;
-    padding: 100px 20px;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
 }
 main.active {
     margin-left: 15rem;
+}
+main .main-wrap {
+    margin-top: 76px;
+    position: relative;
+}
+main .content-wrap {
+    padding: 30px;
+}
+.ajax-loader.active::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-top: 4px solid rgba(0, 0, 0, 0.2);
+    background-color: transparent;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.3);
+    content: "Loading...";
+}
+.ajax-loader.active::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1090;
+    display: block;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.3);
+    content: "";
+    animation-name: loader-animation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+@keyframes loader-animation {
+    0% {
+        left: 0;
+        right: auto;
+        width: 0;
+    }
+    29% {
+        left: 0;
+        right: auto;
+        width: 100%;
+    }
+    30% {
+        left: auto;
+        right: 0;
+    }
+    50% {
+        left: auto;
+        right: 0;
+        width: 0;
+    }
+    79% {
+        left: auto;
+        right: 0;
+        width: 100%;
+    }
+    80% {
+        left: 0;
+        right: auto;
+    }
+    100% {
+        left: 0;
+        right: auto;
+        width: 0;
+    }
 }
 /** ===========================================================
  * Plugins
@@ -93,13 +162,33 @@ section.sidebar .sub-list .list-group-item {
 }
 section.sidebar .nav-icon.material-icons {
     position: absolute;
-    bottom: 14px;
+    bottom: 12px;
     left: 10px;
+    color: gray;
 }
 section.sidebar .nav-arrow.material-icons {
     position: absolute;
     bottom: 12px;
     right: 10px;
+}
+main table .action-buttons button {
+    position: relative;
+    width: 32px;
+    height: 30px;
+    margin: 0;
+}
+main table .action-buttons .material-icons {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    right: 0;
+    display: block;
+    margin: 0 auto;
+}
+main table.dataTable th,
+main table.dataTable > tbody > tr.child span.dtr-title {
+    font-family: "Roboto-Bold";
+    font-size: 0.9rem;
 }
 /** ===========================================================
  * Extra small devices (portrait phones, less than 576px)

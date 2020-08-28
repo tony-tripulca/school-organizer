@@ -18,6 +18,8 @@ class CreateUserDetailsTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('type_id')->unsigned()->default(1);
+            $table->foreign('type_id')->references('id')->on('user_types');
             $table->bigInteger('status_id')->unsigned()->default(1);
             $table->foreign('status_id')->references('id')->on('user_statuses');
 
@@ -58,9 +60,10 @@ class CreateUserDetailsTable extends Migration
             // Contact
             $table->string('mobile')->nullable();
             $table->string('telephone')->nullable();
-            $table->string('e_contact_name')->nullable();
-            $table->string('e_contact_relation')->nullable();
-            $table->string('e_contact_mobile')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('father_mobile')->nullable();
+            $table->string('mother_name')->nullable();
+            $table->string('mother_mobile')->nullable();
         });
     }
 

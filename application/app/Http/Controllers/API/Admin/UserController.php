@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Users\User;
@@ -16,11 +16,8 @@ class UserController extends Controller
     {
         $this->user = $user;
         $this->user_detail = $user_detail;
-
-        $this->getCurrentUser();
-
-        $this->data['tab_title'] = "School Organizer | Admin";
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,21 +25,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        switch ($request->input('type')) {
-            case "admin":
-                $this->data['user_type_id'] = 3;
-                $this->data['user_type'] = "admin";
-                break;
-            case "student":
-                $this->data['user_type_id'] = 6;
-                $this->data['user_type'] = "student";
-                break;
-            default:
-                $this->data['page_title'] = "USERS";
-                break;
-        }
-
-        return view('admin/users/index', $this->data);
+        return response()->json($this->user->get($request->input()));
     }
 
     /**
@@ -63,7 +46,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json(['testing' => "Test"]);
+        $user_type = "";
+        switch ($request->input("user_type_id")) {
+            case 6:
+                $user_type = "Student";
+                $request->validate([
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'email' => 'required|unique:users,email|email',
+                ]);
+                break;
+        }
+
+        // Add user to users table
+        $user = $this->user->create([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'password' => $this->user->defaultPassword(),
+            'api_token' => $this->user->generateApiToken(),
+            'type_id' => $request->input('user_type_id'),
+        ]);
+
+        // Add user to user_details table
+        $this->user_detail->create([
+            'user_id' => $user->id,
+        ]);
+
+        return response()->json(['success' => ucwords($user_type) . "has been saved"]);
     }
 
     /**
