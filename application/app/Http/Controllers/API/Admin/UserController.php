@@ -48,6 +48,14 @@ class UserController extends Controller
     {
         $user_type = "";
         switch ($request->input("user_type_id")) {
+            case 3:
+                $user_type = "Admin";
+                $request->validate([
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'email' => 'required|unique:users,email|email',
+                ]);
+                break;
             case 6:
                 $user_type = "Student";
                 $request->validate([
@@ -73,7 +81,22 @@ class UserController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return response()->json(['success' => ucwords($user_type) . "has been saved"]);
+        // Update user details from user_details table
+        $this->user_detail->where([
+            'user_id' => $user->id,
+        ])->update([
+            'middle_name' => $request->input('middle_name'),
+            'suffix' => $request->input('suffix'),
+            'gender' => $request->input('gender'),
+            'full_address' => $request->input('full_address'),
+            'mobile' => $request->input('mobile'),
+            'father_name' => $request->input('father_name'),
+            'father_mobile' => $request->input('father_mobile'),
+            'mother_name' => $request->input('mother_name'),
+            'mother_mobile' => $request->input('mother_mobile'),
+        ]);
+
+        return response()->json(['success' => ucwords($user_type) . " has been added"]);
     }
 
     /**
@@ -84,7 +107,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json($this->user->getById($id));
     }
 
     /**
@@ -107,7 +130,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request->input());
     }
 
     /**
@@ -118,6 +141,19 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->user->where([
+            'id' => $id,
+        ])->update([
+            'active' => 0,
+            'email' => null,
+        ]);
+
+        $this->user_detail->where([
+            'user_id' => $id,
+        ])->update([
+            'active' => 0,
+        ]);
+
+        return response()->json(['success' => "User has been deleted"]);
     }
 }

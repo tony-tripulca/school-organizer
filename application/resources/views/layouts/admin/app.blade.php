@@ -55,7 +55,11 @@
             </footer>
         </div>
         
-        @yield('modal')
+        @yield('manage-modal')
+        @yield('create-modal')
+        @yield('read-modal')
+        @yield('update-modal')
+        @yield('delete-modal')
 
         <script type="text/javascript">function url() { return "{{ url('/') }}"; }</script>
         <script type="text/javascript">function api() { return "{{ url('/') }}/api"; }</script>

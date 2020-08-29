@@ -1,62 +1,172 @@
 var user = {
-        id: null,
-        key: null,
-        csrf_token: null,
-        save: function (form_el) {
-            var form_data = new FormData(form_el);
+    id: null,
+    key: null,
+    csrf_token: null,
+};
 
-            console.log(form_data);
-
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": user.csrf_token,
-                    // Authorization: `Bearer ${user.key}`,
-                },
-            });
-
-            $.ajax({
-                type: "POST",
-                url: `${api()}/admin/users`,
-                data: form_data,
-                processData: false,
-                contentType: false,
-            })
-                .done(function (response) {
-                    notify({
-                        message: response.success,
-                        heading: "Success",
-                        icon: "success",
-                        timeout: 8000,
-                    });
-                    $("#make-reservation-modal").modal("hide");
-                })
-                .fail(function (error) {
-                    var err_messages = [];
-
-                    if (error.responseJSON.code == 422) {
-                        err_messages.push(error.responseJSON.message);
-                    } else {
-                        $.each(error.responseJSON.errors, function (i, errors) {
-                            err_messages.push(Array.from(errors));
-                        });
-                    }
-
-                    showInputError(error.responseJSON.errors);
-
-                    notify({
-                        message: err_messages,
-                        heading: "Error",
-                        icon: "error",
-                        timeout: 8000,
-                    });
-                })
-                .always(function () {
-                    $(".modal-content.ajax-loader").removeClass("active");
-                    table.schedules.ajax.reload(null, false);
-                });
-        },
+var users = {
+    id: null,
+    fillReadModal: function (data) {
+        $(input.read[0]).val(
+            `${data.last_name}, ${data.first_name} ${data.middle_name ?? ""} ${
+                data.suffix ?? ""
+            }`
+        );
+        $(input.read[1]).val(`${data.full_address ?? ""}`);
+        $(input.read[2]).val(`${data.email ?? ""}`);
+        $(input.read[3]).val(`${data.mobile ?? ""}`);
     },
-    table = {
+    fillUpdateModal: function (data) {
+        if (data.type_id == 6) {
+            $("#update-user-modal .for-student").show();
+        } else {
+            $("#update-user-modal .for-student").hide();
+        }
+
+        $(input.update[0]).val(data.last_name);
+        $(input.update[1]).val(data.first_name);
+        $(input.update[2]).val(data.middle_name);
+        $(input.update[3]).val(data.suffix);
+        $(input.update[4]).val(data.gender);
+        $(input.update[5]).val(data.full_address);
+        $(input.update[6]).val(data.email);
+        $(input.update[7]).val(data.mobile);
+        $(input.update[8]).val(data.father_name);
+        $(input.update[9]).val(data.father_mobile);
+        $(input.update[10]).val(data.mother_name);
+        $(input.update[11]).val(data.mother_mobile);
+    },
+    getUserInfo: function (modal, callback) {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": user.csrf_token,
+                // Authorization: `Bearer ${user.key}`,
+            },
+        });
+
+        $.ajax({
+            type: "GET",
+            url: `${api()}/admin/users/${users.id}`,
+            processData: false,
+            contentType: false,
+        })
+            .done(function (response) {
+                notify({
+                    message: "Info has been retrieved",
+                    heading: "Success",
+                    icon: "success",
+                    timeout: 3000,
+                });
+                callback(response.data);
+            })
+            .fail(function (error) {
+                notify({
+                    message: "Oops! Something went wrong",
+                    heading: "Error",
+                    icon: "error",
+                    timeout: 3000,
+                });
+                console.log(error);
+            })
+            .always(function () {
+                $(modal)
+                    .find(".modal-content.ajax-loader")
+                    .removeClass("active");
+            });
+    },
+    manage: function (element, id) {
+        users.id = id;
+        
+        $(element.modal)
+            .find(".modal-content.ajax-loader")
+            .removeClass("active");
+    },
+    save: function (fn, element) {
+        var form_data = new FormData(element.form);
+
+        var api_url = "";
+        switch (fn) {
+            case "create":
+                api_url = `${api()}/admin/users`;
+                break;
+            case "update":
+                form_data.append("_method", "PUT");
+                api_url = `${api()}/admin/users/${users.id}`;
+                break;
+        }
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": user.csrf_token,
+                // Authorization: `Bearer ${user.key}`,
+            },
+        });
+
+        $.ajax({
+            type: "POST",
+            url: api_url,
+            data: form_data,
+            processData: false,
+            contentType: false,
+        })
+            .done(function (response) {
+                notify({
+                    message: response.success,
+                    heading: "Success",
+                    icon: "success",
+                    timeout: 8000,
+                });
+                $(element.modal).modal("hide");
+            })
+            .fail(function (error) {
+                var err_messages = [];
+
+                if (error.responseJSON.code == 422) {
+                    err_messages.push(error.responseJSON.message);
+                } else {
+                    $.each(error.responseJSON.errors, function (i, errors) {
+                        err_messages.push(Array.from(errors));
+                    });
+                }
+
+                showInputError(error.responseJSON.errors);
+
+                notify({
+                    message: err_messages,
+                    heading: "Error",
+                    icon: "error",
+                    timeout: 8000,
+                });
+            })
+            .always(function () {
+                $(element.modal)
+                    .find(".modal-content.ajax-loader")
+                    .removeClass("active");
+                table.users.el.ajax.reload(null, false);
+            });
+    },
+    read: function (element, id) {
+        users.id = id;
+
+        this.getUserInfo(element.modal, function (data) {
+            users.fillReadModal(data);
+        });
+    },
+    update: function (element, id) {
+        users.id = id;
+
+        this.getUserInfo(element.modal, function (data) {
+            users.fillUpdateModal(data);
+        });
+    },
+    delete: function (element, id) {
+        users.id = id;
+        $(element.modal)
+            .find(".modal-content.ajax-loader")
+            .removeClass("active");
+    },
+};
+var table = {
         users: {
             el: null,
             generate: function () {
@@ -99,16 +209,16 @@ var user = {
                                 class: "action-buttons",
                                 render: function (object) {
                                     return `
-                                        <button class="btn btn-material btn-secondary" data-modal="#manage-user-modal" data-user_id="${object.id}" data-toggle="tooltip" data-placement="top" title="Manage">
+                                        <button class="btn btn-material btn-secondary" data-fn="manage" data-modal="#manage-user-modal" data-resource_id="${object.id}" data-toggle="tooltip" data-placement="top" title="Manage">
                                             <i class="material-icons">settings</i>
                                         </button>
-                                        <button class="btn btn-material btn-info" data-modal="#view-user-modal" data-user_id="${object.id}" data-toggle="tooltip" data-placement="top" title="View">
+                                        <button class="btn btn-material btn-info" data-fn="read" data-modal="#read-user-modal" data-resource_id="${object.id}" data-toggle="tooltip" data-placement="top" title="View">
                                             <i class="material-icons">search</i>
                                         </button>
-                                        <button class="btn btn-material btn-primary" data-modal="#edit-user-modal" data-user_id="${object.id}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <button class="btn btn-material btn-primary" data-fn="update" data-modal="#update-user-modal" data-resource_id="${object.id}" data-toggle="tooltip" data-placement="top" title="Edit">
                                             <i class="material-icons">edit</i>
                                         </button>
-                                        <button class="btn btn-material btn-danger" data-modal="#delete-user-modal" data-user_id="${object.id}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                        <button class="btn btn-material btn-danger" data-fn="delete" data-modal="#delete-user-modal" data-resource_id="${object.id}" data-toggle="tooltip" data-placement="top" title="Delete">
                                             <i class="material-icons">clear</i>
                                         </button>
                                     `;
@@ -127,7 +237,7 @@ var user = {
     },
     form = { el: [] },
     modal = { el: [] },
-    input = { filter: [], add_student: [] };
+    input = { filter: [], create: [], read: [], update: [] };
 
 $(() => {
     initUsers();
@@ -138,16 +248,40 @@ $(() => {
         alert();
     });
 
-    $(form.el[1]).on("submit", function (event) {
+    $(form.el[2]).on("submit", function (event) {
         event.preventDefault();
 
-        $(".modal-content.ajax-loader").addClass("active");
-        user.save(this);
+        $("#create-user-modal .modal-content.ajax-loader").addClass("active");
+        users.save("create", { modal: $("#create-user-modal"), form: this });
+    });
+
+    $(form.el[4]).on("submit", function (event) {
+        event.preventDefault();
+
+        $("#update-user-modal .modal-content.ajax-loader").addClass("active");
+        users.save("update", { modal: $("#update-user-modal"), form: this });
     });
 
     $(document).on("click", ".action-buttons button", function () {
-        var modal = $(this).data('modal');
-        $(modal).modal("show");
+        var html_modal = $(this).data("modal");
+
+        $(html_modal).find(".modal-content.ajax-loader").addClass("active");
+        $(html_modal).modal("show");
+
+        switch ($(this).data("fn")) {
+            case "manage":
+                users.manage({ modal: html_modal }, $(this).data("resource_id"));
+                break;
+            case "read":
+                users.read({ modal: html_modal }, $(this).data("resource_id"));
+                break;
+            case "update":
+                users.update({ modal: html_modal }, $(this).data("resource_id"));
+                break;
+            case "delete":
+                users.delete({ modal: html_modal }, $(this).data("resource_id"));
+                break;
+        }
     });
 
     $(".filter-input").on("click", function () {
@@ -160,6 +294,8 @@ $(() => {
             "box-shadow": "none",
         });
     });
+
+    checkElementsName(input.update);
 });
 
 function initUsers() {
@@ -170,7 +306,9 @@ function initUsers() {
     form.el = $("form[name$=_form].users-form");
 
     input.filter = $(".filter-input");
-    input.add_student = $(".add-student-input");
+    input.create = $(".create-input");
+    input.read = $(".read-input");
+    input.update = $(".update-input");
 
     initUsersPlugins();
 }

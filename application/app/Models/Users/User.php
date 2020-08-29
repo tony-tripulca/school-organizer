@@ -56,49 +56,49 @@ class User extends Authenticatable
         $user_status = [];
 
         $this->consolidated['data'] = DB::table('users as a')
-            ->join('user_types as b', 'b.id', '=', 'a.type_id')
-            ->join('user_details as c', 'c.user_id', '=', 'a.id')
-            ->join('user_statuses as d', 'd.id', '=', 'c.status_id')
+            ->join('user_details as b', 'b.user_id', '=', 'a.id')
+            ->join('user_types as c', 'c.id', '=', 'a.type_id')
+            ->join('user_statuses as d', 'd.id', '=', 'b.status_id')
             ->select(
                 'a.id',
                 'a.type_id',
-                'c.status_id',
-                'b.name as type',
+                'b.status_id',
+                'c.name as type',
                 'd.name as status',
                 'a.last_login',
                 'a.active',
                 'a.first_name',
                 'a.last_name',
                 'a.email',
-                'c.identifier',
-                'c.username',
-                'c.middle_name',
-                'c.suffix',
-                'c.alias',
-                'c.birthday',
-                'c.image',
-                'c.gender',
-                'c.nationality',
-                'c.religion',
-                'c.full_address',
-                'c.pres_line_1',
-                'c.pres_line_2',
-                'c.pres_municipality',
-                'c.pres_city',
-                'c.pres_province',
-                'c.pres_zip',
-                'c.perma_line_1',
-                'c.perma_line_2',
-                'c.perma_municipality',
-                'c.perma_city',
-                'c.perma_province',
-                'c.perma_zip',
-                'c.mobile',
-                'c.telephone',
-                'c.father_name',
-                'c.father_mobile',
-                'c.mother_name',
-                'c.mother_mobile',
+                'b.identifier',
+                'b.username',
+                'b.middle_name',
+                'b.suffix',
+                'b.alias',
+                'b.birthday',
+                'b.image',
+                'b.gender',
+                'b.nationality',
+                'b.religion',
+                'b.full_address',
+                'b.pres_line_1',
+                'b.pres_line_2',
+                'b.pres_municipality',
+                'b.pres_city',
+                'b.pres_province',
+                'b.pres_zip',
+                'b.perma_line_1',
+                'b.perma_line_2',
+                'b.perma_municipality',
+                'b.perma_city',
+                'b.perma_province',
+                'b.perma_zip',
+                'b.mobile',
+                'b.telephone',
+                'b.father_name',
+                'b.father_mobile',
+                'b.mother_name',
+                'b.mother_mobile',
             )
             ->when(!empty($filters), function ($query, $filters) {
                 return $query->whereIn('a.type_id', $type);
@@ -107,6 +107,61 @@ class User extends Authenticatable
                 return $query->whereIn('a.active', $user_status);
             })
             ->get()->toArray();
+
+        return $this->consolidated;
+    }
+
+    public function getById($id)
+    {
+        $this->consolidated['data'] = DB::table('users as a')
+            ->join('user_details as b', 'b.user_id', '=', 'a.id')
+            ->join('user_types as c', 'c.id', '=', 'a.type_id')
+            ->join('user_statuses as d', 'd.id', '=', 'b.status_id')
+            ->select(
+                'a.id',
+                'a.type_id',
+                'b.status_id',
+                'c.name as type',
+                'd.name as status',
+                'a.last_login',
+                'a.active',
+                'a.first_name',
+                'a.last_name',
+                'a.email',
+                'b.identifier',
+                'b.username',
+                'b.middle_name',
+                'b.suffix',
+                'b.alias',
+                'b.birthday',
+                'b.image',
+                'b.gender',
+                'b.nationality',
+                'b.religion',
+                'b.full_address',
+                'b.pres_line_1',
+                'b.pres_line_2',
+                'b.pres_municipality',
+                'b.pres_city',
+                'b.pres_province',
+                'b.pres_zip',
+                'b.perma_line_1',
+                'b.perma_line_2',
+                'b.perma_municipality',
+                'b.perma_city',
+                'b.perma_province',
+                'b.perma_zip',
+                'b.mobile',
+                'b.telephone',
+                'b.father_name',
+                'b.father_mobile',
+                'b.mother_name',
+                'b.mother_mobile',
+            )
+            ->where([
+                'a.id' => $id
+            ])
+            ->get()->first();
 
         return $this->consolidated;
     }

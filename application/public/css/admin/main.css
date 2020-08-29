@@ -190,6 +190,14 @@ main table.dataTable > tbody > tr.child span.dtr-title {
     font-family: "Roboto-Bold";
     font-size: 0.9rem;
 }
+.form-control:disabled,
+.form-control[readonly] {
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+    background-color: white;
+}
+
 /** ===========================================================
  * Extra small devices (portrait phones, less than 576px)
  * No media query for `xs` since this is the default in Bootstrap

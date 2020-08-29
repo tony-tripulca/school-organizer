@@ -2,6 +2,12 @@
 @extends('layouts.admin.header')
 @extends('layouts.admin.footer')
 
+@extends('admin.users.manage')
+@extends('admin.users.create')
+@extends('admin.users.read')
+@extends('admin.users.update')
+@extends('admin.users.delete')
+
 @section('plugin-styles')
 <link rel="stylesheet" type="text/css" href="{{ asset('plugins/datatables/datatables.min.css') }}">
 @endsection
@@ -100,7 +106,7 @@
             <div class="card shadow">
                 @isset($user_type)
                     <div class="card-header">
-                        <button class="dynamic-add-button btn btn-material btn-success roboto-bold" data-toggle="modal" data-target="#add-user-modal">Add {{ ucwords($user_type) }}</button>
+                        <button class="dynamic-add-button btn btn-material btn-success roboto-bold" data-toggle="modal" data-target="#create-user-modal">Add {{ ucwords($user_type) }}</button>
                     </div>
                 @endisset
                 <div class="card-body">
@@ -124,198 +130,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('modal')
-<form class="users-form" name="add_user_form">
-    <input type="hidden" name="user_type_id" value="{{ $user_type_id }}">
-    <div class="modal users-modal fade" id="add-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content ajax-loader">
-                <div class="modal-header">
-                    @isset($user_type)
-                        <p class="modal-title roboto-bold text-15">Add {{ ucwords($user_type) }}</p>
-                    @endisset
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-group col-5">
-                            <small class="text-muted">Last name</small>
-                            <input type="text" class="add-student-input form-control" name="last_name">
-                        </div>
-                        <div class="form-group col-7">
-                            <small class="text-muted">First name</small>
-                            <input type="text" class="add-student-input form-control" name="first_name">
-                        </div>
-                        <div class="form-group col-5">
-                            <small class="text-muted">Middle name</small>
-                            <input type="text" class="add-student-input form-control" name="middle_name">
-                        </div>
-                        <div class="form-group col-3">
-                            <small class="text-muted">Suffix</small>
-                            <input type="text" class="add-student-input form-control" name="suffix">
-                        </div>
-                        <div class="form-group col-4">
-                            <small class="text-muted">Gender</small>
-                            <select class="add-student-input custom-select" name="gender">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-12">
-                            <small class="text-muted">Home Address</small>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="material-icons">location_on</i></span>
-                                </div>
-                                <input type="text" class="add-student-input form-control" name="full_address">
-                            </div>
-                        </div>
-                        <div class="form-group col-12 col-lg-6">
-                            <small class="text-muted">Email Address</small>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="material-icons">email</i></span>
-                                </div>
-                                <input type="text" class="add-student-input form-control" name="email">
-                            </div>
-                        </div>
-                        <div class="form-group col-12 col-lg-6">
-                            <small class="text-muted">Mobile number</small>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="material-icons">phone_android</i></span>
-                                </div>
-                                <input type="text" class="add-student-input form-control" name="mobile">
-                            </div>
-                        </div>
-                    </div>
-                    @if($user_type == "student")
-                        <div class="form-row">
-                            <div class="form-group col-12 col-md-6">
-                                <small class="text-muted">Father's name</small>
-                                <input type="text" class="add-student-input form-control" name="father_name">
-                            </div>
-                            <div class="form-group col-12 col-md-6">
-                                <small class="text-muted">Father's mobile</small>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="material-icons">phone_android</i></span>
-                                    </div>
-                                    <input type="text" class="add-student-input form-control" name="father_mobile">
-                                </div>
-                            </div>
-                            <div class="form-group col-12 col-md-6">
-                                <small class="text-muted">Mother's name</small>
-                                <input type="text" class="add-student-input form-control" name="mother_name">
-                            </div>
-                            <div class="form-group col-12 col-md-6">
-                                <small class="text-muted">Mobile number</small>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="material-icons">phone_android</i></span>
-                                    </div>
-                                    <input type="text" class="add-student-input form-control" name="mother_mobile">
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-material btn-success">Save</button>
-                    <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<form class="users-form" name="manage_user_form">
-    <input type="hidden" name="resource_id" value>
-    <div class="modal users-modal fade" id="manage-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content ajax-loader">
-                <div class="modal-header">
-                    <p class="modal-title roboto-bold text-15">Manage User</p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Work in progress...</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<form class="users-form" name="view_user_form">
-    <input type="hidden" name="resource_id" value>
-    <div class="modal users-modal fade" id="view-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content ajax-loader">
-                <div class="modal-header">
-                    <p class="modal-title roboto-bold text-15">View User</p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Work in progress...</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<form class="users-form" name="edit_user_form">
-    <input type="hidden" name="resource_id" value>
-    <div class="modal users-modal fade" id="edit-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content ajax-loader">
-                <div class="modal-header">
-                    <p class="modal-title roboto-bold text-15">Edit User</p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Work in progress...</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<form class="users-form" name="delete_user_form">
-    <input type="hidden" name="resource_id" value>
-    <div class="modal users-modal fade" id="delete-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable modal-sm">
-            <div class="modal-content ajax-loader">
-                <div class="modal-header">
-                    <p class="modal-title roboto-bold text-15">Delete User</p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <i class="material-icons text-danger text-20">info_outline</i>
-                    <p>Are you sure?</p>
-                </div>
-                <div class="modal-footer">
-                <button type="submit" class="btn btn-material btn-danger">Delete</button>
-                    <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 @endsection
