@@ -68,7 +68,7 @@ function checkElementsName(elements) {
 function clearForm(form) {
     $(form)
         .find("input")
-        .not("button, submit, reset, hidden, checkbox, radio")
+        .not("[type=button], [type=submit], [type=reset], [type=hidden], [type=checkbox], [type=radio]")
         .val("");
     $(form).find(":checkbox, :radio").prop("checked", false);
 }
