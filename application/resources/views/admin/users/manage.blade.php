@@ -1,6 +1,5 @@
 @section('manage-modal')
 <form class="users-form" name="manage_user_form">
-    <input type="hidden" name="resource_id" value>
     <div class="modal users-modal fade" id="manage-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content ajax-loader">

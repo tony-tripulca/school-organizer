@@ -37,8 +37,8 @@ function initMain() {
 }
 
 function initMainPlugins() {
-    $('body').tooltip({
-        selector: '[data-toggle="tooltip"]'
+    $("body").tooltip({
+        selector: '[data-toggle="tooltip"]',
     });
 }
 
@@ -51,6 +51,7 @@ function checkElementsName(elements) {
         elements: [],
         ids: [],
         names: [],
+        values: [],
     };
 
     inspect.elements = elements;
@@ -58,9 +59,36 @@ function checkElementsName(elements) {
     $.each(elements, function (i, element) {
         inspect.ids.push($(element).attr("id"));
         inspect.names.push($(element).attr("name"));
+        inspect.values.push($(element).attr("value"));
     });
 
     console.log(inspect);
+}
+
+function clearForm(form) {
+    $(form)
+        .find("input")
+        .not("button, submit, reset, hidden, checkbox, radio")
+        .val("");
+    $(form).find(":checkbox, :radio").prop("checked", false);
+}
+
+function ajaxModalLoading(state, element) {
+    if(state) {
+        $(element).find(".modal-content.ajax-loader").addClass("active");
+    } else {
+        $(element).find(".modal-content.ajax-loader").removeClass("active");
+    }
+}
+
+function ajaxMainLoading(state) {
+    if(state) {
+        $("section.topbar .ajax-wrap").addClass("active");
+        $("section.topbar .ajax-loader").addClass("active");
+    } else {
+        $("section.topbar .ajax-wrap").removeClass("active");
+        $("section.topbar .ajax-loader").removeClass("active");
+    }
 }
 
 function media() {

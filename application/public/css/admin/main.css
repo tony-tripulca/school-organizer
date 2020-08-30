@@ -12,6 +12,19 @@ section.topbar .navbar {
         0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
     transition: all 0.4s;
 }
+section.topbar .ajax-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    display: none;
+    width: 100%;
+    height: 100%;
+    margin-top: 76px;
+}
+section.topbar .ajax-wrap.active {
+    display: block;
+}
 section.sidebar {
     position: fixed;
     top: 76px;
@@ -43,76 +56,8 @@ main {
 main.active {
     margin-left: 15rem;
 }
-main .main-wrap {
-    margin-top: 76px;
-    position: relative;
-}
 main .content-wrap {
-    padding: 30px;
-}
-.ajax-loader.active::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1030;
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-top: 4px solid rgba(0, 0, 0, 0.2);
-    background-color: transparent;
-    text-align: center;
-    color: rgba(0, 0, 0, 0.3);
-    content: "Loading...";
-}
-.ajax-loader.active::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1090;
-    display: block;
-    width: 100%;
-    height: 4px;
-    background-color: rgba(0, 0, 0, 0.3);
-    content: "";
-    animation-name: loader-animation;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-}
-@keyframes loader-animation {
-    0% {
-        left: 0;
-        right: auto;
-        width: 0;
-    }
-    29% {
-        left: 0;
-        right: auto;
-        width: 100%;
-    }
-    30% {
-        left: auto;
-        right: 0;
-    }
-    50% {
-        left: auto;
-        right: 0;
-        width: 0;
-    }
-    79% {
-        left: auto;
-        right: 0;
-        width: 100%;
-    }
-    80% {
-        left: 0;
-        right: auto;
-    }
-    100% {
-        left: 0;
-        right: auto;
-        width: 0;
-    }
+    padding: 100px 30px;
 }
 /** ===========================================================
  * Plugins

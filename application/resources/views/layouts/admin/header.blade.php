@@ -13,6 +13,9 @@
             </span>
         </button>
     </nav>
+    <div class="ajax-wrap">
+        <div class="ajax-loader"></div>
+    </div>
 </section>
 <section class="sidebar bg-white shadow">
     <div class="profile-box">

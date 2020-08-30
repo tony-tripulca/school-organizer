@@ -52,7 +52,9 @@ class User extends Authenticatable
 
     public function get($data)
     {
-        $filters = [];
+        $records = $data['records'] ?? null;
+        $gender = $data['gender'] ?? null;
+        $user_type_id = $data['user_type_id'] ?? null;
         $user_status = [];
 
         $this->consolidated['data'] = DB::table('users as a')
@@ -100,11 +102,14 @@ class User extends Authenticatable
                 'b.mother_name',
                 'b.mother_mobile',
             )
-            ->when(!empty($filters), function ($query, $filters) {
-                return $query->whereIn('a.type_id', $type);
+            ->when(!empty($records), function ($query) use ($records) {
+                return $query->whereIn('a.active', $records);
             })
-            ->when(!empty($user_status), function ($query, $user_status) {
-                return $query->whereIn('a.active', $user_status);
+            ->when(!empty($gender), function ($query) use ($gender) {
+                return $query->whereIn('b.gender', $gender);
+            })
+            ->when($user_type_id, function ($query) use ($user_type_id) {
+                return $query->where('a.type_id', $user_type_id);
             })
             ->get()->toArray();
 

@@ -1,6 +1,7 @@
 @section('create-modal')
 <form class="users-form" name="create_user_form">
-    <input type="hidden" name="user_type_id" value="{{ $user_type_id }}">
+    <input type="hidden" name="user_type_id" value="{{ $user_type_id ?? 0}}">
+    <input type="hidden" name="user_type" value="{{ $user_type ?? '' }}">
     <div class="modal users-modal fade" id="create-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content ajax-loader">
@@ -65,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    @if($user_type == "student")
+                    @if(isset($user_type) && $user_type == "student")
                         <div class="form-row">
                             <div class="form-group col-12 col-md-6">
                                 <small class="text-muted">Father's name</small>

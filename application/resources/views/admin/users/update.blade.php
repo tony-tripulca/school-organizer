@@ -1,6 +1,7 @@
 @section('update-modal')
 <form class="users-form" name="update_user_form">
-    <input type="hidden" name="user_type_id" value="{{ $user_type_id }}">
+    <input type="hidden" name="user_type_id" value="{{ $user_type_id ?? 0}}">
+    <input type="hidden" name="user_type" value="{{ $user_type ?? '' }}">
     <div class="modal users-modal fade" id="update-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content ajax-loader">

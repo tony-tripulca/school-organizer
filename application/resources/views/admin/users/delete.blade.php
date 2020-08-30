@@ -1,6 +1,5 @@
 @section('delete-modal')
 <form class="users-form" name="delete_user_form">
-    <input type="hidden" name="resource_id" value>
     <div class="modal users-modal fade" id="delete-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-sm">
             <div class="modal-content ajax-loader">
@@ -15,7 +14,7 @@
                     <p>Are you sure?</p>
                 </div>
                 <div class="modal-footer">
-                <button type="submit" class="btn btn-material btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-material btn-danger">Delete</button>
                     <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>

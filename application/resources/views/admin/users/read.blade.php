@@ -1,6 +1,5 @@
 @section('read-modal')
 <form class="users-form" name="read_user_form">
-    <input type="hidden" name="resource_id" value>
     <div class="modal users-modal fade" id="read-user-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content ajax-loader">
@@ -72,7 +71,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-material btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
