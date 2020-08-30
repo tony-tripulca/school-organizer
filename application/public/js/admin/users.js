@@ -255,7 +255,7 @@ var table = {
                                     return `${object.last_name}, ${
                                         object.first_name
                                     } ${
-                                        object.active
+                                        object.active == 1
                                             ? ""
                                             : '<small class="badge badge-danger"> Deleted</small>'
                                     }`;
