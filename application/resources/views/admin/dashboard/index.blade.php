@@ -33,7 +33,7 @@
             <p class="roboto-bold text-15">{{ $page_title }}</p>
         </div>
         <div class="col-6 text-right">
-            <div class="crumbs">
+            <div class="crumbs d-none d-md-block">
                 <a href="{{ route('admin.base') }}" class="roboto-bold text-muted text-_9">Admin Panel &gt;</a>
                 <a href="{{ route('admin.dashboard') }}" class="roboto-bold text-muted text-_9">Dashboard</a>
             </div>
@@ -46,7 +46,7 @@
                     <span class="icon bg-verylightgrey"><i class="ti-user"></i></span>
                     <p class="card-text count">12</p>
                     <p class="card-text title">Students</p>
-                    <p class="card-text description">Number of registered students</p>
+                    <p class="card-text description">Registered students</p>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
                     <span class="icon bg-verylightgrey"><i class="ti-notepad"></i></span>
                     <p class="card-text count">7</p>
                     <p class="card-text title">Profiles</p>
-                    <p class="card-text description">Number of complete profiles</p>
+                    <p class="card-text description">Completed profiles</p>
                 </div>
             </div>
         </div>

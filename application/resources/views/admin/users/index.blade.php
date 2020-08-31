@@ -39,7 +39,7 @@
             <p class="roboto-bold text-15">USERS | {{ ucwords($user_type ?? "all") }}</p>
         </div>
         <div class="offset-2 col-4 text-right">
-            <div class="crumbs">
+            <div class="crumbs d-none d-md-block">
                 <a href="{{ route('admin.base') }}" class="roboto-bold text-muted text-_9">Admin Panel &gt;</a>
                 <a href="{{ route('admin.users.index') }}" class="roboto-bold text-muted text-_9">Users &gt;</a>
                 <a href="{{ route('admin.users.index', ['type' => $user_type ?? 'all']) }}" class="roboto-bold text-muted text-_9">{{ ucwords($user_type ?? "View All") }}</a>

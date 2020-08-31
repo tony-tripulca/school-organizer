@@ -117,7 +117,6 @@
     border: none;
 }
 .card.widget {
-    min-width: 340px;
     height: 90px;
     margin-top: 20px;
     border-radius: 0.15rem;
@@ -134,7 +133,7 @@
 }
 .card.widget .card-body .icon {
     position: absolute;
-    top: -15px;
+    top: -20px;
     display: block;
     padding: 5px;
     width: 80px;

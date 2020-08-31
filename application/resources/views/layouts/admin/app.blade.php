@@ -65,7 +65,7 @@
         <div class="preloader">
             <div class="spinner spinner-3"></div>
         </div>
-        <div class="loader-wrap">
+        <div class="wrapper">
             <header>
                 @yield('navigation')
             </header>
