@@ -11,8 +11,30 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::group([
+    'namespace' => 'Admin',
+    'prefix' => 'admin',
+    'as' => 'admin.',
+], function () {
+    Route::middleware(['auth', 'admin'])->group(function () {
+
+    });
+});
+
+// Temporary routes
+Route::group([
+    'namespace' => 'Admin',
+    'prefix' => 'admin',
+    'as' => 'admin.',
+], function () {
+    Route::group([], function () {
+        Route::get('/', "DashboardController@index")->name("base");
+        Route::get('/dashboard', "DashboardController@index")->name("dashboard");
+
+        Route::resource('/users', "UserController");
+    });
 });

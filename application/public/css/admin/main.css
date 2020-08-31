@@ -1,0 +1,174 @@
+html,
+body {
+    width: 100%;
+    font-family: "OpenSans";
+}
+body .wrapper {
+    overflow-x: hidden;
+}
+section.topbar .navbar {
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.4s;
+}
+section.topbar .ajax-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    display: none;
+    width: 100%;
+    height: 100%;
+    margin-top: 76px;
+}
+section.topbar .ajax-wrap.active {
+    display: block;
+}
+section.sidebar {
+    position: fixed;
+    top: 76px;
+    left: 0;
+    z-index: 1000;
+    width: 15rem;
+    height: 100%;
+    margin-left: -15rem;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+section.sidebar.active {
+    margin-left: 0;
+}
+section.sidebar .profile-box {
+    padding-top: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+section.sidebar .spacer {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+main {
+    width: 100%;
+    margin-left: 0;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+main.active {
+    margin-left: 15rem;
+}
+main .content-wrap {
+    padding: 100px 10px;
+}
+/** ===========================================================
+ * Plugins
+ * ============================================================ */
+.hamburger {
+    width: 3rem;
+    height: 3.5rem;
+    margin-top: 4px;
+    margin-right: 0;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.hamburger-inner,
+.hamburger-inner::after,
+.hamburger-inner::before {
+    background-color: #fff;
+}
+
+.hamburger.is-active .hamburger-inner,
+.hamburger.is-active .hamburger-inner::after,
+.hamburger.is-active .hamburger-inner::before {
+    background-color: #fff;
+}
+/** ===========================================================
+ * Components
+ * ============================================================ */
+section.sidebar .list-group-item {
+    color: black;
+    background-color: transparent;
+}
+section.sidebar .list-group-item.active {
+    color: black;
+    background-color: transparent;
+}
+section.sidebar .main-list .list-group-item {
+    padding-left: 40px;
+    border: none;
+    outline: none;
+}
+section.sidebar .sub-list .list-group-item {
+    padding-left: 50px;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+}
+section.sidebar .nav-icon.material-icons {
+    position: absolute;
+    bottom: 12px;
+    left: 10px;
+    color: gray;
+}
+section.sidebar .nav-arrow.material-icons {
+    position: absolute;
+    bottom: 12px;
+    right: 10px;
+}
+main table .action-buttons button {
+    position: relative;
+    width: 32px;
+    height: 30px;
+    margin: 0;
+}
+main table .action-buttons .material-icons {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    right: 0;
+    display: block;
+    margin: 0 auto;
+}
+main table.dataTable th,
+main table.dataTable > tbody > tr.child span.dtr-title {
+    font-family: "Roboto-Bold";
+    font-size: 0.9rem;
+}
+.form-control:disabled,
+.form-control[readonly] {
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+    background-color: white;
+}
+
+/** ===========================================================
+ * Extra small devices (portrait phones, less than 576px)
+ * No media query for `xs` since this is the default in Bootstrap
+ *
+ * Small devices (landscape phones, 576px and up)
+ * Medium devices (tablets, 768px and up)
+ * Large devices (desktops, 992px and up)
+ * Extra large devices (large desktops, 1200px and up)
+ * ============================================================ */
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 992px) {
+    .hamburger {
+        margin-right: 16px;
+    }
+    main.active {
+        width: calc(100% - 15rem);
+    }
+    main .content-wrap {
+        padding: 100px 30px;
+    }
+}
+@media (min-width: 1200px) {
+}
