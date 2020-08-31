@@ -54,6 +54,7 @@ class UserController extends Controller
                     'first_name' => 'required',
                     'last_name' => 'required',
                     'email' => 'required|unique:users,email|email',
+                    'user_type_id' => 'required',
                 ]);
                 break;
             case 6:
@@ -62,6 +63,7 @@ class UserController extends Controller
                     'first_name' => 'required',
                     'last_name' => 'required',
                     'email' => 'required|unique:users,email|email',
+                    'user_type_id' => 'required',
                 ]);
                 break;
         }
@@ -130,7 +132,50 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->input());
+        $user_type = "";
+        switch ($request->input("user_type_id")) {
+            case 3:
+                $user_type = "Admin";
+                $request->validate([
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'user_type_id' => 'required',
+                ]);
+                break;
+            case 6:
+                $user_type = "Student";
+                $request->validate([
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'user_type_id' => 'required',
+                ]);
+                break;
+        }
+
+        $this->user->where([
+            'id' => $id
+        ])
+        ->update([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'type_id' => $request->input('user_type_id'),
+        ]);
+
+        $this->user_detail->where([
+            'user_id' => $id,
+        ])->update([
+            'middle_name' => $request->input('middle_name'),
+            'suffix' => $request->input('suffix'),
+            'gender' => $request->input('gender'),
+            'full_address' => $request->input('full_address'),
+            'mobile' => $request->input('mobile'),
+            'father_name' => $request->input('father_name'),
+            'father_mobile' => $request->input('father_mobile'),
+            'mother_name' => $request->input('mother_name'),
+            'mother_mobile' => $request->input('mother_mobile'),
+        ]);
+
+        return response()->json(['success' => ucwords($user_type) . " has been updated"]);
     }
 
     /**

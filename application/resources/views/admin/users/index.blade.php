@@ -82,24 +82,28 @@
                             <div class="form-group col-12">
                                 <small class="text-muted">Incomplete</small>
                                 <div class="form-check">
-                                    <input type="checkbox" id="father-name" class="filter-input form-check-input" name="father_name" value/>
+                                    <input type="checkbox" id="father-name" class="filter-input form-check-input" name="incomplete" value="father_name"/>
                                     <label class="form-check-label" for="father-name"> Father's name</label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" id="mother-name" class="filter-input form-check-input" name="mother_name" value/>
+                                    <input type="checkbox" id="mother-name" class="filter-input form-check-input" name="incomplete" value="mother_name"/>
                                     <label class="form-check-label" for="mother-name"> Mother's name</label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" id="address" class="filter-input form-check-input" name="address" value/>
+                                    <input type="checkbox" id="address" class="filter-input form-check-input" name="incomplete" value="full_address"/>
                                     <label class="form-check-label" for="address"> Home address</label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" id="student-mobile" class="filter-input form-check-input" name="student_mobile" value/>
+                                    <input type="checkbox" id="student-mobile" class="filter-input form-check-input" name="incomplete" value="mobile"/>
                                     <label class="form-check-label" for="student-mobile"> Student's mobile</label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" id="parent-mobile" class="filter-input form-check-input" name="parent_mobile" value/>
-                                    <label class="form-check-label" for="parent-mobile"> Parent's mobile</label>
+                                    <input type="checkbox" id="father-mobile" class="filter-input form-check-input" name="incomplete" value="father_mobile"/>
+                                    <label class="form-check-label" for="father-mobile"> Father's mobile</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="mother-mobile" class="filter-input form-check-input" name="incomplete" value="mother_mobile"/>
+                                    <label class="form-check-label" for="mother-mobile"> Mother's mobile</label>
                                 </div>
                             </div>
                         </div>

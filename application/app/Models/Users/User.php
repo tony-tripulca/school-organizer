@@ -54,6 +54,7 @@ class User extends Authenticatable
     {
         $records = $data['records'] ?? null;
         $gender = $data['gender'] ?? null;
+        $incomplete = $data['incomplete'] ?? null;
         $user_type_id = $data['user_type_id'] ?? null;
         $user_status = [];
 
@@ -107,6 +108,35 @@ class User extends Authenticatable
             })
             ->when(!empty($gender), function ($query) use ($gender) {
                 return $query->whereIn('b.gender', $gender);
+            })
+            ->when(!empty($incomplete), function ($query) use ($incomplete) {
+                $fields = [];
+
+                if(in_array("father_name", $incomplete)) {
+                    $fields[] = "b.father_name";
+                }
+
+                if(in_array("father_mobile", $incomplete)) {
+                    $fields[] = "b.father_mobile";
+                }
+
+                if(in_array("mother_name", $incomplete)) {
+                    $fields[] = "b.mother_name";
+                }
+
+                if(in_array("mother_mobile", $incomplete)) {
+                    $fields[] = "b.mother_mobile";
+                }
+
+                if(in_array("full_address", $incomplete)) {
+                    $fields[] = "b.full_address";
+                }
+
+                if(in_array("mobile", $incomplete)) {
+                    $fields[] = "b.mobile";
+                }
+
+                return $query->whereNull($fields);
             })
             ->when($user_type_id, function ($query) use ($user_type_id) {
                 return $query->where('a.type_id', $user_type_id);

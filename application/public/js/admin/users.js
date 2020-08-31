@@ -14,31 +14,31 @@ var users = {
     getUserInfo: function (modal, callback) {
         $.ajaxSetup({
             headers: {
-                "X-CSRF-TOKEN": user.csrf_token,
+                'X-CSRF-TOKEN': user.csrf_token,
                 // Authorization: `Bearer ${user.key}`,
             },
         });
 
         $.ajax({
-            type: "GET",
+            type: 'GET',
             url: `${api()}/admin/users/${users.id}`,
             processData: false,
             contentType: false,
         })
             .done(function (response) {
                 notify({
-                    message: "Info has been retrieved",
-                    heading: "Success",
-                    icon: "success",
+                    message: 'Info has been retrieved',
+                    heading: 'Success',
+                    icon: 'success',
                     timeout: 3000,
                 });
                 callback(response.data);
             })
             .fail(function (error) {
                 notify({
-                    message: "Oops! Something went wrong",
-                    heading: "Error",
-                    icon: "error",
+                    message: 'Oops! Something went wrong',
+                    heading: 'Error',
+                    icon: 'error',
                     timeout: 3000,
                 });
                 console.log(error);
@@ -57,14 +57,14 @@ var users = {
         });
     },
     fillReadModal: function (data) {
-        $(input.read[0]).val(
-            `${data.last_name}, ${data.first_name} ${data.middle_name || ""} ${
-                data.suffix || ""
-            }`
-        );
-        $(input.read[1]).val(`${data.full_address || ""}`);
-        $(input.read[2]).val(`${data.email || ""}`);
-        $(input.read[3]).val(`${data.mobile || ""}`);
+        $(input.read[0]).val(`${data.last_name}, ${data.first_name} ${data.middle_name || ''} ${data.suffix || ''}`);
+        $(input.read[1]).val(`${data.full_address || ''}`);
+        $(input.read[2]).val(`${data.email || ''}`);
+        $(input.read[3]).val(`${data.mobile || ''}`);
+        $(input.read[4]).val(`${data.father_name || ''}`);
+        $(input.read[5]).val(`${data.father_mobile || ''}`);
+        $(input.read[6]).val(`${data.mother_name || ''}`);
+        $(input.read[7]).val(`${data.mobile_mobile || ''}`);
     },
     update: function (element, id) {
         users.id = id;
@@ -77,9 +77,9 @@ var users = {
     },
     fillUpdateModal: function (data) {
         if (data.type_id == 6) {
-            $("#update-user-modal .for-student").show();
+            $('#update-user-modal .for-student').show();
         } else {
-            $("#update-user-modal .for-student").hide();
+            $('#update-user-modal .for-student').hide();
         }
 
         $(input.update[0]).val(data.last_name);
@@ -88,38 +88,37 @@ var users = {
         $(input.update[3]).val(data.suffix);
         $(input.update[4]).val(data.gender);
         $(input.update[5]).val(data.full_address);
-        $(input.update[6]).val(data.email);
-        $(input.update[7]).val(data.mobile);
-        $(input.update[8]).val(data.father_name);
-        $(input.update[9]).val(data.father_mobile);
-        $(input.update[10]).val(data.mother_name);
-        $(input.update[11]).val(data.mother_mobile);
+        $(input.update[6]).val(data.mobile);
+        $(input.update[7]).val(data.father_name);
+        $(input.update[8]).val(data.father_mobile);
+        $(input.update[9]).val(data.mother_name);
+        $(input.update[10]).val(data.mother_mobile);
     },
     save: function (fn, element) {
         var form_data = new FormData(element.form);
 
         ajaxModalLoading(true, element.modal);
 
-        var api_url = "";
+        var api_url = '';
         switch (fn) {
-            case "create":
+            case 'create':
                 api_url = `${api()}/admin/users`;
                 break;
-            case "update":
-                form_data.append("_method", "PUT");
+            case 'update':
+                form_data.append('_method', 'PUT');
                 api_url = `${api()}/admin/users/${users.id}`;
                 break;
         }
 
         $.ajaxSetup({
             headers: {
-                "X-CSRF-TOKEN": user.csrf_token,
+                'X-CSRF-TOKEN': user.csrf_token,
                 // Authorization: `Bearer ${user.key}`,
             },
         });
 
         $.ajax({
-            type: "POST",
+            type: 'POST',
             url: api_url,
             data: form_data,
             processData: false,
@@ -128,11 +127,11 @@ var users = {
             .done(function (response) {
                 notify({
                     message: response.success,
-                    heading: "Success",
-                    icon: "success",
+                    heading: 'Success',
+                    icon: 'success',
                     timeout: 3000,
                 });
-                $(element.modal).modal("hide");
+                $(element.modal).modal('hide');
                 clearForm(element.form);
             })
             .fail(function (error) {
@@ -150,8 +149,8 @@ var users = {
 
                 notify({
                     message: err_messages,
-                    heading: "Error",
-                    icon: "error",
+                    heading: 'Error',
+                    icon: 'error',
                     timeout: 3000,
                 });
             })
@@ -164,20 +163,20 @@ var users = {
     delete: function (element, id) {
         users.id = id;
 
-        $(element.modal).modal("show");
+        $(element.modal).modal('show');
     },
     confirmDelete: function (element) {
         ajaxModalLoading(true, element.modal);
 
         $.ajaxSetup({
             headers: {
-                "X-CSRF-TOKEN": user.csrf_token,
+                'X-CSRF-TOKEN': user.csrf_token,
                 // Authorization: `Bearer ${user.key}`,
             },
         });
 
         $.ajax({
-            type: "DELETE",
+            type: 'DELETE',
             url: `${api()}/admin/users/${users.id}`,
             processData: false,
             contentType: false,
@@ -185,17 +184,17 @@ var users = {
             .done(function (response) {
                 notify({
                     message: response.success,
-                    heading: "Success",
-                    icon: "success",
+                    heading: 'Success',
+                    icon: 'success',
                     timeout: 3000,
                 });
-                $(element.modal).modal("hide");
+                $(element.modal).modal('hide');
             })
             .fail(function (error) {
                 notify({
-                    message: "Oops! Something went wrong",
-                    heading: "Error",
-                    icon: "error",
+                    message: 'Oops! Something went wrong',
+                    heading: 'Error',
+                    icon: 'error',
                     timeout: 3000,
                 });
             })
@@ -211,37 +210,37 @@ var table = {
             el: null,
             generate: function () {
                 try {
-                    table.users.el = $("#users-table").DataTable({
+                    table.users.el = $('#users-table').DataTable({
                         responsive: true,
                         bAutoWidth: false,
-                        order: [[0, "asc"]],
+                        order: [[0, 'asc']],
                         ajax: {
-                            type: "GET",
+                            type: 'GET',
                             headers: {
                                 // Authorization: `Bearer ${user.key}`,
                             },
                             url: `${api()}/admin/users`,
                             data: function (data) {
                                 var records = [],
-                                    gender = [];
+                                    gender = [],
+                                    incomplete = [];
 
-                                $.each(input.filter.records, function (
-                                    index,
-                                    record
-                                ) {
+                                $.each(input.filter.records, function (index, record) {
                                     records.push(parseInt($(record).val()));
                                 });
 
-                                $.each(input.filter.gender, function (
-                                    index,
-                                    gend
-                                ) {
+                                $.each(input.filter.gender, function (index, gend) {
                                     gender.push($(gend).val());
                                 });
 
-                                data.user_type_id = $("input[name=user_type_id].filter-input").val();
+                                $.each(input.filter.incomplete, function (index, inc) {
+                                    incomplete.push($(inc).val());
+                                });
+
+                                data.user_type_id = $('input[name=user_type_id].filter-input').val();
                                 data.records = records;
                                 data.gender = gender;
+                                data.incomplete = incomplete;
                             },
                         },
                         drawCallback: function (settings) {
@@ -252,27 +251,23 @@ var table = {
                             {
                                 data: null,
                                 render: function (object) {
-                                    return `${object.last_name}, ${
-                                        object.first_name
-                                    } ${
-                                        object.active == 1
-                                            ? ""
-                                            : '<small class="badge badge-danger"> Deleted</small>'
+                                    return `${object.last_name}, ${object.first_name} ${
+                                        object.active == 1 ? '' : '<small class="badge badge-danger"> Deleted</small>'
                                     }`;
                                 },
                             },
-                            { data: "email" },
-                            { data: "mobile" },
-                            { data: "gender" },
-                            { data: "full_address" },
-                            { data: "father_name" },
-                            { data: "father_mobile" },
-                            { data: "mother_name" },
-                            { data: "mother_mobile" },
+                            { data: 'email' },
+                            { data: 'mobile' },
+                            { data: 'gender' },
+                            { data: 'full_address' },
+                            { data: 'father_name' },
+                            { data: 'father_mobile' },
+                            { data: 'mother_name' },
+                            { data: 'mother_mobile' },
                             {
                                 data: null,
                                 sortable: false,
-                                class: "action-buttons",
+                                class: 'action-buttons',
                                 render: function (object) {
                                     return `
                                         <button class="btn btn-material btn-secondary" data-fn="manage" data-modal="#manage-user-modal" data-resource_id="${object.id}" data-toggle="tooltip" data-placement="top" title="Manage">
@@ -294,7 +289,7 @@ var table = {
                     });
                 } catch (error) {
                     console.log({
-                        component: "Users Table",
+                        component: 'Users Table',
                         err: [error],
                     });
                 }
@@ -318,80 +313,72 @@ $(() => {
     initUsers();
 
     // create_user_form
-    $(form.el[2]).on("submit", function (event) {
+    $(form.el[2]).on('submit', function (event) {
         event.preventDefault();
 
-        users.save("create", { modal: $("#create-user-modal"), form: this });
+        users.save('create', { modal: $('#create-user-modal'), form: this });
     });
 
     // update_user_form
-    $(form.el[4]).on("submit", function (event) {
+    $(form.el[4]).on('submit', function (event) {
         event.preventDefault();
 
-        users.save("update", { modal: $("#update-user-modal"), form: this });
+        users.save('update', { modal: $('#update-user-modal'), form: this });
     });
 
     // delete_user_form
-    $(form.el[5]).on("submit", function (event) {
+    $(form.el[5]).on('submit', function (event) {
         event.preventDefault();
 
-        users.confirmDelete({ modal: $("#delete-user-modal"), form: this });
+        users.confirmDelete({ modal: $('#delete-user-modal'), form: this });
     });
 
-    $(document).on("click", ".action-buttons button", function () {
-        var html_modal = $(this).data("modal");
-        $(html_modal).modal("show");
+    $(document).on('click', '.action-buttons button', function () {
+        var html_modal = $(this).data('modal');
+        $(html_modal).modal('show');
 
-        switch ($(this).data("fn")) {
-            case "manage":
-                users.manage(
-                    { modal: html_modal },
-                    $(this).data("resource_id")
-                );
+        switch ($(this).data('fn')) {
+            case 'manage':
+                users.manage({ modal: html_modal }, $(this).data('resource_id'));
                 break;
-            case "read":
-                users.read({ modal: html_modal }, $(this).data("resource_id"));
+            case 'read':
+                users.read({ modal: html_modal }, $(this).data('resource_id'));
                 break;
-            case "update":
-                users.update(
-                    { modal: html_modal },
-                    $(this).data("resource_id")
-                );
+            case 'update':
+                users.update({ modal: html_modal }, $(this).data('resource_id'));
                 break;
-            case "delete":
-                users.delete(
-                    { modal: html_modal },
-                    $(this).data("resource_id")
-                );
+            case 'delete':
+                users.delete({ modal: html_modal }, $(this).data('resource_id'));
                 break;
         }
     });
 
-    $(".filter-input").on("click", function () {
-        input.filter.records = $("input[name=records].filter-input:checked");
-        input.filter.gender = $("input[name=gender].filter-input:checked");
+    $('.filter-input').on('click', function () {
+        input.filter.records = $('input[name=records].filter-input:checked');
+        input.filter.gender = $('input[name=gender].filter-input:checked');
+        input.filter.incomplete = $('input[name=incomplete].filter-input:checked');
 
         ajaxMainLoading(true);
         table.users.el.ajax.reload(null, false);
     });
 
-    $("input").on("change", function () {
+    $('input').on('change', function () {
         $(this).css({
-            "box-shadow": "none",
+            'box-shadow': 'none',
         });
     });
 });
 
 function initUsers() {
-    user.id = $("meta[name=user_id]").attr("content");
-    user.key = $("meta[name=api_token]").attr("content");
-    user.csrf_token = $('meta[name="csrf_token"]').attr("content");
+    user.id = $('meta[name=user_id]').attr('content');
+    user.key = $('meta[name=api_token]').attr('content');
+    user.csrf_token = $('meta[name="csrf_token"]').attr('content');
 
-    form.el = $("form[name$=_form].users-form");
+    form.el = $('form[name$=_form].users-form');
 
-    input.create = $(".create-input");
-    input.read = $(".read-input");
-    input.update = $(".update-input");
+    input.create = $('.create-input');
+    input.read = $('.read-input');
+    input.update = $('.update-input');
 
     initUsersPlugins();
 }
@@ -403,7 +390,7 @@ function initUsersPlugins() {
 function showInputError(errors) {
     $.each(errors, function (index, err) {
         $(`input[type=text][name=${index}`).css({
-            "box-shadow": "1px 1px 4px red",
+            'box-shadow': '1px 1px 4px red',
         });
     });
 }
