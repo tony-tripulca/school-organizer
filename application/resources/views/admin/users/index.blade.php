@@ -35,10 +35,10 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <p class="roboto-bold text-15">USERS | {{ ucwords($user_type ?? "all") }}</p>
         </div>
-        <div class="offset-2 col-4 text-right">
+        <div class="col-12 col-md-4 text-right">
             <div class="crumbs d-none d-md-block">
                 <a href="{{ route('admin.base') }}" class="roboto-bold text-muted text-_9">Admin Panel &gt;</a>
                 <a href="{{ route('admin.users.index') }}" class="roboto-bold text-muted text-_9">Users &gt;</a>
@@ -123,15 +123,16 @@
                         <thead>
                             <tr>
                                 <th class="all">Name</th>
-                                <th class="desktop">Email</th>
                                 <th class="desktop">Mobile</th>
+                                <th class="desktop">Status</th>
+                                <th class="none">Email</th>
                                 <th class="none">Gender</th>
                                 <th class="none">Home Address</th>
                                 <th class="none">Father's name</th>
                                 <th class="none">Father's number</th>
                                 <th class="none">Mother's name</th>
                                 <th class="none">Mother's number</th>
-                                <th class="not-mobile last">Actions</th>
+                                <th class="not-mobile">Actions</th>
                             </tr>
                         </thead>
                     </table>
