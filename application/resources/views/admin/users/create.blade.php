@@ -55,6 +55,12 @@
                                 </div>
                                 <input type="text" class="create-input form-control" name="email">
                             </div>
+                            <div class="input-group">
+                                <div class="form-check">
+                                    <input type="checkbox" id="no-email" class="create-input form-check-input"/>
+                                    <label class="form-check-label text-muted" for="no-email"> No email</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group col-12 col-lg-6">
                             <small class="text-muted">Mobile number</small>

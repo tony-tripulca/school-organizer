@@ -204,6 +204,14 @@ var users = {
                 table.users.el.ajax.reload(null, false);
             });
     },
+    noEmailInput: function (data) {
+        var email = `${data.first_name}.${data.last_name}@noemail.com`;
+
+        $('input[name=email].create-input').val(email);
+    },
+    removeEmailInput: function() {
+        $('input[name=email].create-input').val("");
+    }
 };
 var table = {
         users: {
@@ -211,6 +219,10 @@ var table = {
             generate: function () {
                 try {
                     table.users.el = $('#users-table').DataTable({
+                        // dom: 'Bfrtip',
+                        // buttons: ['copy', 'excel', 'pdf', 'print'],
+                        // fixedHeader: false,
+                        // select: true,
                         responsive: true,
                         bAutoWidth: false,
                         order: [[0, 'asc']],
@@ -251,13 +263,19 @@ var table = {
                             {
                                 data: null,
                                 render: function (object) {
-                                    return `${object.last_name}, ${object.first_name} ${
-                                        object.active == 1 ? '' : '<small class="badge badge-danger"> Deleted</small>'
-                                    }`;
+                                    return `${object.last_name}, ${object.first_name}`;
                                 },
                             },
-                            { data: 'email' },
                             { data: 'mobile' },
+                            {
+                                data: null,
+                                render: function(object) {
+                                    return `${
+                                        object.active == 1 ? '<small class="badge badge-success"> Active</small>' : '<small class="badge badge-danger"> Deleted</small>'
+                                    }`;
+                                }
+                            },
+                            { data: 'email' },
                             { data: 'gender' },
                             { data: 'full_address' },
                             { data: 'father_name' },
@@ -366,6 +384,17 @@ $(() => {
         $(this).css({
             'box-shadow': 'none',
         });
+    });
+
+    $('#no-email').on('change', function () {
+        if($(this).is(':checked')) {
+            users.noEmailInput({
+                first_name: $('input[name=first_name].create-input').val(),
+                last_name: $('input[name=last_name].create-input').val(),
+            });
+        } else {
+            users.removeEmailInput();
+        }
     });
 });
 
