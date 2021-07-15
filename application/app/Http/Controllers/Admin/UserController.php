@@ -21,6 +21,12 @@ class UserController extends Controller
 
         $this->data['tab_title'] = "School Organizer | Admin";
     }
+
+    public function new_function() {
+        // This is a test code
+        // Another line here
+    }
+
     /**
      * Display a listing of the resource.
      *
