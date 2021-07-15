@@ -12,6 +12,10 @@ class DashboardController extends Controller
         $this->data['tab_title'] = "School Organizer | Admin";
     }
 
+    public function new_dashboard() {
+        // This is a test code
+    }
+
     public function index() {
         $this->data['page_title'] = "DASHBOARD";
 
